@@ -1,12 +1,11 @@
 module.exports = function(grunt) {
     // 从 npm 载入任务
-    var config = require('./.screeps.json')
+    const config = require('./.screeps.json');
 
     grunt.loadNpmTasks("grunt-ts")
     grunt.loadNpmTasks("grunt-screeps")
     grunt.loadNpmTasks('grunt-contrib-clean')
     grunt.loadNpmTasks('grunt-contrib-copy')
-    grunt.loadNpmTasks("grunt-contrib-watch")
     // 配置任务
     grunt.initConfig({
         screeps: {
@@ -20,13 +19,10 @@ module.exports = function(grunt) {
                 src: ['dist/*.{js,wasw}']
             }
         },
-        watch: {
-            files: "dist/*.*",
-            tasks: ["screeps"]
-        },
         // 移除 dist 文件夹中的所有文件。
         clean: {
-            'dist': ['dist']
+            'dist': ['dist'],
+            'target': ['target']
         },
         // 将所有源文件复制到 dist 文件夹中并展平文件夹结构
         copy: {
@@ -34,7 +30,7 @@ module.exports = function(grunt) {
             screeps: {
                 files: [{
                     expand: true,
-                    cwd: 'src/',
+                    cwd: 'target/',
                     src: '**',
                     dest: 'dist/',
                     filter: 'isFile',
@@ -46,7 +42,7 @@ module.exports = function(grunt) {
             }
         },
         // typescripts 编译任务
-        'ts': {
+        ts: {
             default : {
                 options: {
                     sourceMap: false,
@@ -57,11 +53,10 @@ module.exports = function(grunt) {
                 // 要进行编译的目录及文件
                 src: ["src/*.ts"],
                 // 编译好的文件的输出目录
-                outDir: 'dist/'
+                outDir: 'target/'
             }
         }
     })
     // 将 ts 编译任务注册到默认执行命令
-    grunt.registerTask('default',  [ 'clean', 'copy:screeps' ])
-    // grunt.registerTask('watch',  [ 'watch' ])
+    grunt.registerTask('default',  ['clean:target', 'ts', 'clean:dist', 'copy']);
 }

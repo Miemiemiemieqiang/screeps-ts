@@ -47,7 +47,7 @@ module.exports = function(grunt) {
                 options: {
                     sourceMap: false,
                     // 编译到的目标版本
-                    target: 'es6',
+                    target: 'es5',
                     rootDir: "src/"
                 },
                 // 要进行编译的目录及文件
@@ -58,5 +58,5 @@ module.exports = function(grunt) {
         }
     })
     // 将 ts 编译任务注册到默认执行命令
-    grunt.registerTask('default',  ['clean:target', 'ts', 'clean:dist', 'copy']);
+    grunt.registerTask('default',  ['clean:dist', 'copy']);
 }

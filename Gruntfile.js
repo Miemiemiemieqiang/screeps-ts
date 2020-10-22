@@ -58,5 +58,5 @@ module.exports = function(grunt) {
         }
     })
     // 将 ts 编译任务注册到默认执行命令
-    grunt.registerTask('default',  ['clean:dist', 'copy']);
+    grunt.registerTask('default',  ['clean:dist', 'copy', 'screeps']);
 }
